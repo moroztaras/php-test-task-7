@@ -28,6 +28,9 @@ class MobilePhone
     #[ORM\Column]
     private ?float $balance = null;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mobilePhones')]
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class MobilePhone
     public function setBalance(float $balance): self
     {
         $this->balance = $balance;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
