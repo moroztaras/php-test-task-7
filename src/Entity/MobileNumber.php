@@ -29,11 +29,8 @@ class MobileNumber implements \JsonSerializable
     #[ORM\Column]
     private ?float $balance = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private User $user;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mobileNumbers')]
+    private ?User $user;
 
     public function getId(): ?int
     {

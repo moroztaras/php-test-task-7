@@ -27,10 +27,7 @@ class User implements \JsonSerializable
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthday = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="MobileNumber", mappedBy="user", cascade={"persist", "remove"})
-     * @ORM\OrderBy({"id" = "DESC"})
-     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MobileNumber::class)]
     private ArrayCollection $mobileNumbers;
 
     public function __construct()
