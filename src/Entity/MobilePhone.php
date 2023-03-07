@@ -29,7 +29,7 @@ class MobilePhone
     private ?float $balance = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mobilePhones')]
-    private $user;
+    private ?User $user;
 
     public function getId(): ?int
     {
