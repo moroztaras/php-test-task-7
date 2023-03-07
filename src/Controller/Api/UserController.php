@@ -5,13 +5,33 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class UserController.
+ */
 #[Route('api/user')]
 class UserController extends AbstractController
 {
+    #[Route('/{id}', name: 'api_user_show', methods: ['GET'])]
+    public function show(User $user): Response
+    {
+        if (!$user) {
+            throw new JsonException('User Not Found',404);
+        }
+        foreach ($user->getMobileNumbers() as $mobileNumber)
+        {
+            var_dump($mobileNumber->getNameOperator());
+        }
+        return $this->json([
+            'user' => $user,
+//            'mobile_numbers' => $user->getMobileNumbers()
+        ]);
+    }
+
     #[Route('/', name: 'api_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
@@ -39,13 +59,7 @@ class UserController extends AbstractController
 //        ]);
     }
 
-    #[Route('/{id}', name: 'api_user_show', methods: ['GET'])]
-    public function show(User $user): Response
-    {
-//        return $this->render('user/show.html.twig', [
-//            'user' => $user,
-//        ]);
-    }
+
 
     #[Route('/{id}/edit', name: 'api_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response

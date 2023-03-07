@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\MobileNumberRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ReturnTypeWillChange;
 
 #[ORM\Entity(repositoryClass: MobileNumberRepository::class)]
-class MobileNumber
+class MobileNumber implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,7 +33,7 @@ class MobileNumber
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user;
+    private User $user;
 
     public function getId(): ?int
     {
@@ -119,5 +120,17 @@ class MobileNumber
         $this->user = $user;
 
         return $this;
+    }
+
+    #[ReturnTypeWillChange]
+    public function jsonSerialize()
+    {
+        return [
+            'name_operator' => $this->getNameOperator(),
+            'code_country' => $this->getCodeCountry(),
+            'code_operator' => $this->getCodeOperator(),
+            'number' => $this->getNumber(),
+            'balance' => $this->getBalance(),
+        ];
     }
 }
