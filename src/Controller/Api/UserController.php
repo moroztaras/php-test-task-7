@@ -36,7 +36,7 @@ class UserController extends AbstractController
 
 
     #[Route('/registration', name: 'api_user_registration', methods: ['GET', 'POST'])]
-    public function registration(Request $request, UserRepository $userRepository): JsonResponse
+    public function registration(Request $request): JsonResponse
     {
         if (!$content = $request->getContent()) {
             throw new JsonHttpException(400, 'Bad Request');
@@ -47,14 +47,19 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'api_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user): Response
     {
 
     }
 
-    #[Route('/{id}', name: 'api_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    #[Route('/{id}/remove', name: 'api_user_delete', methods: ['DELETE'])]
+    public function delete(Request $request, User $user): Response
     {
+        if (!$user) {
+            throw new JsonException('User Not Found',404);
+        }
+        $this->userManager->remove($user);
 
+        return $this->json('User removed successfully.');
     }
 }

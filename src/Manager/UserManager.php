@@ -33,4 +33,18 @@ class UserManager
         return $user;
     }
 
+    public function remove(User $user): bool
+    {
+        //Remove all mobile numbers of user
+        foreach ($user->getMobileNumbers() as $mobileNumber)
+        {
+            $this->doctrine->getManager()->remove($mobileNumber);
+        }
+
+        //Remove user
+        $this->doctrine->getManager()->remove($user);
+        $this->doctrine->getManager()->flush();
+
+        return true;
+    }
 }
