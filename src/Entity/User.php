@@ -29,7 +29,7 @@ class User
      * @ORM\OneToMany(targetEntity="MobileNumber", mappedBy="user", cascade={"persist", "remove"})
      * @ORM\OrderBy({"id" = "DESC"})
      */
-    private $mobileNumbers;
+    private ArrayCollection $mobileNumbers;
 
     public function __construct()
     {

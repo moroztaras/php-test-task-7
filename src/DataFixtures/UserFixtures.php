@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\MobilePhone;
+use App\Entity\MobileNumber;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -11,6 +11,7 @@ class UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        //Fixtures for one user
         $user = new User();
         $user
             ->setFirstName('Taras')
@@ -19,20 +20,50 @@ class UserFixtures extends Fixture
         ;
         $manager->persist($user);
 
-        $countMobilePhone = rand(1,3);
-        for($i=1; $i<=$countMobilePhone; $i++) {
-            $mobilePhone = new MobilePhone();
-            $mobilePhone
-                ->setNameOperator('KyivStar')
-                ->setCodeCountry('380')
-                ->setCodeOperator('68')
-                ->setNumber('1234567')
-                ->setBalance(50.0)
-                ->setUser($user)
-            ;
+        //Fixtures for mobile number
+        $balance = rand(-150.0,150.0);
 
-            $manager->persist($mobilePhone);
-        }
+        $mobileNumberOne = new MobileNumber();
+        $mobileNumberOne
+            ->setNameOperator('KyivStar')
+            ->setCodeCountry('380')
+            ->setCodeOperator('68')
+            ->setNumber('1234567')
+            ->setBalance((float) $balance)
+            ->setUser($user)
+        ;
+
+        $manager->persist($mobileNumberOne);
+
+        //Fixtures for mobile number
+        $balance = rand(-150.0,150.0);
+
+        $mobileNumberTwo = new MobileNumber();
+        $mobileNumberTwo
+            ->setNameOperator('Vodofone')
+            ->setCodeCountry('380')
+            ->setCodeOperator('50')
+            ->setNumber('7654321')
+            ->setBalance((float) $balance)
+            ->setUser($user)
+        ;
+
+        $manager->persist($mobileNumberTwo);
+
+        //Fixtures for mobile number
+        $balance = rand(-150.0,150.0);
+
+        $mobileNumberThree = new MobileNumber();
+        $mobileNumberThree
+            ->setNameOperator('Life')
+            ->setCodeCountry('380')
+            ->setCodeOperator('63')
+            ->setNumber('1029384')
+            ->setBalance((float) $balance)
+            ->setUser($user)
+        ;
+
+        $manager->persist($mobileNumberThree);
 
         $manager->flush();
     }
