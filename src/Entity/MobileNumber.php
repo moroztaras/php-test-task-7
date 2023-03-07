@@ -28,8 +28,11 @@ class MobileNumber
     #[ORM\Column]
     private ?float $balance = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mobilePhones')]
-    private ?User $user;
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -96,11 +99,21 @@ class MobileNumber
         return $this;
     }
 
+    /**
+     * Get user.
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * Set user.
+     *
+     * @param User|null $user
+     *
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;

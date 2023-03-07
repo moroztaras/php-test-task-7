@@ -25,13 +25,17 @@ class User
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthday = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MobileNumber::class, cascade: ["persist", "remove"])]
-    private ArrayCollection $mobilePhones;
+    /**
+     * @ORM\OneToMany(targetEntity="MobileNumber", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"id" = "DESC"})
+     */
+    private $mobileNumbers;
 
     public function __construct()
     {
-        $this->mobilePhones = new ArrayCollection();
+        $this->mobileNumbers = new ArrayCollection();
     }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,10 +78,33 @@ class User
     }
 
     /**
-     * @return Collection|MobilePhone[]
+     * @return Collection|MobileNumber[]
      */
-    public function getMobilePhones(): Collection
+    public function getMobileNumbers(): Collection
     {
-        return $this->mobilePhones;
+        return $this->mobileNumbers;
+    }
+
+    public function addMobileNumber(MobileNumber $mobileNumber): self
+    {
+        if (!$this->mobileNumbers->contains($mobileNumber)) {
+            $this->mobileNumbers[] = $mobileNumber;
+            $mobileNumber->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMobileNumber(MobileNumber $mobileNumber): self
+    {
+        if ($this->mobileNumbers->contains($mobileNumber)) {
+            $this->mobileNumbers->removeElement($mobileNumber);
+            // set the owning side to null (unless already changed)
+            if ($mobileNumber->getUser() === $this) {
+                $mobileNumber->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
