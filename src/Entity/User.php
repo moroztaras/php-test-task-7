@@ -27,13 +27,8 @@ class User implements \JsonSerializable
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthday = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MobileNumber::class)]
-    private ArrayCollection $mobileNumbers;
-
-    public function __construct()
-    {
-        $this->mobileNumbers = new ArrayCollection();
-    }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MobileNumber::class, cascade: ['persist'])]
+    private Collection $mobileNumbers;
 
     public function getId(): ?int
     {
@@ -114,6 +109,7 @@ class User implements \JsonSerializable
             'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
             'birthday' => $this->getBirthday()->format('c'),
+            'mobile_numbers' => $this->getMobileNumbers()
         ];
     }
 }

@@ -22,14 +22,7 @@ class UserController extends AbstractController
         if (!$user) {
             throw new JsonException('User Not Found',404);
         }
-        foreach ($user->getMobileNumbers() as $mobileNumber)
-        {
-            var_dump($mobileNumber->getNameOperator());
-        }
-        return $this->json([
-            'user' => $user,
-//            'mobile_numbers' => $user->getMobileNumbers()
-        ]);
+        return $this->json(['user' => $user]);
     }
 
     #[Route('/', name: 'api_user_index', methods: ['GET'])]
