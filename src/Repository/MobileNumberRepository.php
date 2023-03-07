@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\MobilePhone;
+use App\Entity\MobileNumber;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<MobilePhone>
+ * @extends ServiceEntityRepository<MobileNumber>
  *
- * @method MobilePhone|null find($id, $lockMode = null, $lockVersion = null)
- * @method MobilePhone|null findOneBy(array $criteria, array $orderBy = null)
- * @method MobilePhone[]    findAll()
- * @method MobilePhone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method MobileNumber|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MobileNumber|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MobileNumber[]    findAll()
+ * @method MobileNumber[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MobilePhoneRepository extends ServiceEntityRepository
+class MobileNumberRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MobilePhone::class);
+        parent::__construct($registry, MobileNumber::class);
     }
 
-    public function save(MobilePhone $entity, bool $flush = false): void
+    public function save(MobileNumber $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class MobilePhoneRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(MobilePhone $entity, bool $flush = false): void
+    public function remove(MobileNumber $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class MobilePhoneRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return MobilePhone[] Returns an array of MobilePhone objects
+//     * @return MobileNumber[] Returns an array of MobilePhone objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class MobilePhoneRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?MobilePhone
+//    public function findOneBySomeField($value): ?MobileNumber
 //    {
 //        return $this->createQueryBuilder('m')
 //            ->andWhere('m.exampleField = :val')

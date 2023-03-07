@@ -25,7 +25,7 @@ class User
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthday = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MobilePhone::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: MobileNumber::class, cascade: ["persist", "remove"])]
     private ArrayCollection $mobilePhones;
 
     public function __construct()
