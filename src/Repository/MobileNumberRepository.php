@@ -21,6 +21,17 @@ class MobileNumberRepository extends ServiceEntityRepository
         parent::__construct($registry, MobileNumber::class);
     }
 
+    public function sumaBalances(): array
+    {
+        return $this->createQueryBuilder('mn')
+            ->join('mn.user', 'u')
+            ->select('u.firstName, u.lastName, mn.nameOperator, SUM(mn.balance) as sumaBalances')
+            ->groupBy('u.firstName, u.lastName, mn.nameOperator')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function save(MobileNumber $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

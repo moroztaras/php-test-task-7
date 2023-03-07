@@ -53,7 +53,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/remove', name: 'api_user_delete', methods: ['DELETE'])]
-    public function delete(Request $request, User $user): Response
+    public function delete(User $user): Response
     {
         if (!$user) {
             throw new JsonException('User Not Found',404);
@@ -61,5 +61,13 @@ class UserController extends AbstractController
         $this->userManager->remove($user);
 
         return $this->json('User removed successfully.');
+    }
+
+
+    //Get balance every user and operators (1)
+    #[Route('/{id}/suma-balances', name: 'api_suma_balances', methods: ['GET'])]
+    public function balance(User $user): JsonResponse
+    {
+        return $this->json(['balances' => $this->userManager->sumaBalancesByEveryUserAndOperator()]);
     }
 }

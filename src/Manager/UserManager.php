@@ -2,6 +2,7 @@
 
 namespace App\Manager;
 
+use App\Entity\MobileNumber;
 use App\Entity\User;
 use App\Exception\JsonHttpException;
 use App\Validator\Helper\ApiObjectValidator;
@@ -46,5 +47,11 @@ class UserManager
         $this->doctrine->getManager()->flush();
 
         return true;
+    }
+
+    //Balance by every user and operator
+    public function sumaBalancesByEveryUserAndOperator():array
+    {
+        return $this->doctrine->getRepository(MobileNumber::class)->sumaBalances();
     }
 }
