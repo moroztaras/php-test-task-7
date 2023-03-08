@@ -32,6 +32,18 @@ class MobileNumberRepository extends ServiceEntityRepository
             ;
     }
 
+    //Count numbers by every code operator
+    public function countNumbers(): array
+    {
+        return $this->createQueryBuilder('mn')
+            ->join('mn.user', 'u')
+            ->select('mn.codeOperator, COUNT(mn.number) as countNumbers')
+            ->groupBy('mn.codeOperator')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function save(MobileNumber $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

@@ -54,4 +54,10 @@ class UserManager
     {
         return $this->doctrine->getRepository(MobileNumber::class)->sumaBalances();
     }
+
+    //Count numbers by every code operator
+    public function countNumbersByCodeOperator():array
+    {
+        return $this->doctrine->getRepository(MobileNumber::class)->countNumbers();
+    }
 }

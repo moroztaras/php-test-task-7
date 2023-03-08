@@ -70,4 +70,11 @@ class UserController extends AbstractController
     {
         return $this->json(['balances' => $this->userManager->sumaBalancesByEveryUserAndOperator()]);
     }
+
+    //Get count mobile numbers by code operator (2)
+    #[Route('/{id}/numbers', name: 'api_numbers', methods: ['GET'])]
+    public function countNumbers (User $user): JsonResponse
+    {
+        return $this->json(['numbers' => $this->userManager->countNumbersByCodeOperator()]);
+    }
 }
