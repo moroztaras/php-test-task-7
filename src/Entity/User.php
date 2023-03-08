@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -27,6 +28,11 @@ class User implements \JsonSerializable
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: MobileNumber::class, cascade: ['persist'])]
     private Collection $mobileNumbers;
+
+    public function __construct()
+    {
+        $this->mobileNumbers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

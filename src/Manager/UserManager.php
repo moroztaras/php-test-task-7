@@ -4,34 +4,26 @@ namespace App\Manager;
 
 use App\Entity\MobileNumber;
 use App\Entity\User;
-use App\Exception\JsonHttpException;
-use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserManager
 {
     public function __construct(
         private ManagerRegistry $doctrine,
-        private ValidatorInterface $validator,
-        private ApiObjectValidator $apiObjectValidator,
     ) {
     }
 
-    public function create ($content): User
+    //create new user
+    public function create($data): User
     {
-        /* @var User $user */
-        $user = $this->apiObjectValidator->deserializeAndValidate($content, User::class, [UnwrappingDenormalizer::UNWRAP_PATH => '[user]']);
+        $user = new User();
+        $user
+            ->setFirstName($data['first_name'])
+            ->setLastName($data['last_name'])
+            ->setBirthday(new \DateTime($data['birthday']))
+        ;
 
-        $errors = $this->validator->validate($user);
-        if (count($errors)) {
-            throw new JsonHttpException(400, (string) $errors->get(0)->getPropertyPath().': '.(string) $errors->get(0)->getMessage());
-        }
-        $this->doctrine->getManager()->persist($user);
-        $this->doctrine->getManager()->flush();
-
-        return $user;
+        return $this->save($user);
     }
 
     public function remove(User $user): bool
@@ -43,8 +35,7 @@ class UserManager
         }
 
         //Remove user
-        $this->doctrine->getManager()->remove($user);
-        $this->doctrine->getManager()->flush();
+        $this->removeUser($user);
 
         return true;
     }
@@ -71,5 +62,23 @@ class UserManager
     public function usersWithBalance():array
     {
         return $this->doctrine->getRepository(MobileNumber::class)->getUsersWithBalance();
+    }
+
+    //Save user in DB
+    private function save(User $user):User
+    {
+       $this->doctrine->getManager()->persist($user);
+        $this->doctrine->getManager()->flush();
+
+        return $user;
+    }
+
+    //Remove user in DB
+    private function removeUser(User $user):User
+    {
+        $this->doctrine->getManager()->remove($user);
+        $this->doctrine->getManager()->flush();
+
+        return $user;
     }
 }

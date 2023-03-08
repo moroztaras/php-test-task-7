@@ -4,7 +4,6 @@ namespace App\Controller\Api;
 
 use App\Entity\User;
 use App\Manager\UserManager;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Exception\JsonHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 /**
  * Class UserController.
@@ -30,27 +28,21 @@ class UserController extends AbstractController
     public function show(User $user): JsonResponse
     {
         if (!$user) {
-            throw new JsonException('User Not Found',404);
+            throw new JsonException('User Not Found',Response::HTTP_NOT_FOUND);
         }
         return $this->json(['user' => $user]);
     }
 
-
+    // Registration new user (3)
     #[Route('/registration', name: 'api_user_registration', methods: ['GET', 'POST'])]
     public function registration(Request $request): JsonResponse
     {
         if (!$content = $request->getContent()) {
-            throw new JsonHttpException(400, 'Bad Request');
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
         }
-        $user = $this->userManager->create($content);
+        $user = $this->userManager->create(json_decode($content, true));
 
-        return $this->json($user);
-    }
-
-    #[Route('/{id}/edit', name: 'api_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user): Response
-    {
-
+        return $this->json(['user' => $user]);
     }
 
     //Remove user by id (5)
@@ -58,7 +50,7 @@ class UserController extends AbstractController
     public function delete(User $user): Response
     {
         if (!$user) {
-            throw new JsonException('User Not Found',404);
+            throw new JsonException('User Not Found',Response::HTTP_NOT_FOUND);
         }
         $this->userManager->remove($user);
 
