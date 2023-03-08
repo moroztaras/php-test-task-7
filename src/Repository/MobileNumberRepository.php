@@ -37,7 +37,7 @@ class MobileNumberRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('mn')
             ->join('mn.user', 'u')
-            ->select('mn.codeOperator, COUNT(mn.number) as countNumbers')
+            ->select('mn.codeOperator, COUNT(mn.number) as countMobileNumbers')
             ->groupBy('mn.codeOperator')
             ->getQuery()
             ->getResult()

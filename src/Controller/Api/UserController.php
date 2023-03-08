@@ -25,7 +25,8 @@ class UserController extends AbstractController
     ){
     }
 
-    #[Route('/{id}', name: 'api_user_show', methods: ['GET'])]
+    //Show profile user by user id (1)
+    #[Route('/{id}/profile', name: 'api_user_profile', methods: ['GET'])]
     public function show(User $user): JsonResponse
     {
         if (!$user) {
@@ -52,6 +53,7 @@ class UserController extends AbstractController
 
     }
 
+    //Remove user by id (5)
     #[Route('/{id}/remove', name: 'api_user_delete', methods: ['DELETE'])]
     public function delete(User $user): Response
     {
@@ -75,7 +77,7 @@ class UserController extends AbstractController
     #[Route('/{id}/numbers', name: 'api_numbers', methods: ['GET'])]
     public function countNumbers (User $user): JsonResponse
     {
-        return $this->json(['numbers' => $this->userManager->countNumbersByCodeOperator()]);
+        return $this->json(['mobileNumbers' => $this->userManager->countNumbersByCodeOperator()]);
     }
 
     //Get count of phone numbers every user. (3)
