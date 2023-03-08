@@ -44,6 +44,18 @@ class MobileNumberRepository extends ServiceEntityRepository
             ;
     }
 
+    //Users and count of phone numbers.
+    public function countNumbersEveryUser(): array
+    {
+        return $this->createQueryBuilder('mn')
+            ->join('mn.user', 'u')
+            ->select('u.firstName, u.lastName, COUNT(mn.number) as phoneNumbers')
+            ->groupBy('u.firstName, u.lastName')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function save(MobileNumber $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

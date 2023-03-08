@@ -60,4 +60,10 @@ class UserManager
     {
         return $this->doctrine->getRepository(MobileNumber::class)->countNumbers();
     }
+
+    //Count numbers by every user
+    public function numbersEveryUser():array
+    {
+        return $this->doctrine->getRepository(MobileNumber::class)->countNumbersEveryUser();
+    }
 }

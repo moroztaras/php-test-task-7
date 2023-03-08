@@ -77,4 +77,11 @@ class UserController extends AbstractController
     {
         return $this->json(['numbers' => $this->userManager->countNumbersByCodeOperator()]);
     }
+
+    //Get count of phone numbers every user. (3)
+    #[Route('/{id}/count-numbers-every-user', name: 'api_count_numbers_every_user', methods: ['GET'])]
+    public function countNumbersUser (User $user): JsonResponse
+    {
+        return $this->json($this->userManager->numbersEveryUser());
+    }
 }
