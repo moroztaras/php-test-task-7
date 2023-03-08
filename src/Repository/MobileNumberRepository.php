@@ -61,7 +61,7 @@ class MobileNumberRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('mn')
             ->join('mn.user', 'u')
-            ->select('u.firstName, u.lastName, mn.balance')
+            ->select('u.firstName, u.lastName, MAX(mn.balance) as balance')
             ->groupBy('u.firstName, u.lastName, mn.balance')
             ->orderBy('mn.balance','DESC')
             ->setMaxResults(10)
