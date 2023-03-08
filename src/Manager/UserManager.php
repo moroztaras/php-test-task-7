@@ -66,4 +66,10 @@ class UserManager
     {
         return $this->doctrine->getRepository(MobileNumber::class)->countNumbersEveryUser();
     }
+
+    //Users with max balance
+    public function usersWithBalance():array
+    {
+        return $this->doctrine->getRepository(MobileNumber::class)->getUsersWithBalance();
+    }
 }

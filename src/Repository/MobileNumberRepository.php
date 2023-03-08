@@ -56,6 +56,20 @@ class MobileNumberRepository extends ServiceEntityRepository
             ;
     }
 
+    //The ten users with max balance
+    public function getUsersWithBalance(): array
+    {
+        return $this->createQueryBuilder('mn')
+            ->join('mn.user', 'u')
+            ->select('u.firstName, u.lastName, mn.balance')
+            ->groupBy('u.firstName, u.lastName, mn.balance')
+            ->orderBy('mn.balance','DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function save(MobileNumber $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

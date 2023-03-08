@@ -84,4 +84,11 @@ class UserController extends AbstractController
     {
         return $this->json($this->userManager->numbersEveryUser());
     }
+
+    //Get ten users with max balance. (4)
+    #[Route('/{id}/user-max-balance', name: 'api_user_max_balance', methods: ['GET'])]
+    public function usersWithMaxBalance (User $user): JsonResponse
+    {
+        return $this->json($this->userManager->usersWithBalance());
+    }
 }
