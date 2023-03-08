@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MobileNumberRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ReturnTypeWillChange;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MobileNumberRepository::class)]
 class MobileNumber implements \JsonSerializable
@@ -18,15 +19,19 @@ class MobileNumber implements \JsonSerializable
     private ?string $nameOperator = null;
 
     #[ORM\Column(length: 3)]
-    private ?string $codeCountry = null;
+    #[Assert\Range(min:100, max:999)]
+    private ?int $codeCountry = null;
 
     #[ORM\Column(length: 2)]
-    private ?string $codeOperator = null;
+    #[Assert\Range(min:50, max:99)]
+    private ?int $codeOperator = null;
 
     #[ORM\Column(length: 7)]
-    private ?string $number = null;
+    #[Assert\Range(min:1000000, max:9999999)]
+    private ?int $number = null;
 
     #[ORM\Column]
+    #[Assert\Range(min:-150, max:150)]
     private ?float $balance = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mobileNumbers')]
