@@ -32,7 +32,7 @@ class MobileNumber implements \JsonSerializable
 
     #[ORM\Column]
     #[Assert\Range(min:-150, max:150)]
-    private ?float $balance = null;
+    private ?float $balance = 0.0;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mobileNumbers')]
     private ?User $user;
