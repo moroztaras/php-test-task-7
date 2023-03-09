@@ -30,9 +30,9 @@ class UserFixtures extends Fixture
         $mobileNumberOne = new MobileNumber();
         $mobileNumberOne
             ->setNameOperator('KyivStar')
-            ->setCodeCountry('380')
-            ->setCodeOperator('68')
-            ->setNumber('1234567')
+            ->setCodeCountry(380)
+            ->setCodeOperator(68)
+            ->setNumber(1234567)
             ->setBalance((float) $balance)
             ->setUser($user)
         ;
@@ -45,9 +45,9 @@ class UserFixtures extends Fixture
         $mobileNumberTwo = new MobileNumber();
         $mobileNumberTwo
             ->setNameOperator('Vodafone')
-            ->setCodeCountry('380')
-            ->setCodeOperator('50')
-            ->setNumber('7654321')
+            ->setCodeCountry(380)
+            ->setCodeOperator(50)
+            ->setNumber(7654321)
             ->setBalance((float) $balance)
             ->setUser($user)
         ;
@@ -60,9 +60,9 @@ class UserFixtures extends Fixture
         $mobileNumberThree = new MobileNumber();
         $mobileNumberThree
             ->setNameOperator('Life')
-            ->setCodeCountry('380')
-            ->setCodeOperator('63')
-            ->setNumber('1029384')
+            ->setCodeCountry(380)
+            ->setCodeOperator(63)
+            ->setNumber(1029384)
             ->setBalance((float) $balance)
             ->setUser($user)
         ;
@@ -93,7 +93,7 @@ class UserFixtures extends Fixture
                 $mobileNumber = new MobileNumber();
                 $mobileNumber
                     ->setNameOperator($operators[$randNumber])
-                    ->setCodeCountry('380')
+                    ->setCodeCountry(380)
                     ->setCodeOperator($codeOperators[$randNumber])
                     ->setNumber($number)
                     ->setBalance((float) $balance)
