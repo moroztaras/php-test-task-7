@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\MobileNumber;
 use App\Entity\User;
 use App\Manager\MobileNumberManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,6 +38,23 @@ class MobileNumberController extends AbstractController
         }
 
         $mobileNumber = $this->mobileNumberManager->add($user, json_decode($content, true));
+
+        return $this->json(['mobileNumber' => $mobileNumber]);
+    }
+
+    //Topping up the balance of a mobile number
+    #[Route('/{id}/top-up-balance', name: 'api_mobile_number_top_up_balance', methods: ['GET', 'POST'])]
+    public function topUpBalance (Request $request, MobileNumber $mobileNumber): JsonResponse
+    {
+        if (!$content = $request->getContent()) {
+            throw new JsonHttpException(Response::HTTP_BAD_REQUEST, 'Bad Request');
+        }
+
+        if (!$mobileNumber) {
+            throw new JsonException('Mobile Number Not Found',Response::HTTP_NOT_FOUND);
+        }
+
+        $mobileNumber = $this->mobileNumberManager->topUpBalance($mobileNumber, json_decode($content, true));
 
         return $this->json(['mobileNumber' => $mobileNumber]);
     }
