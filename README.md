@@ -1,11 +1,41 @@
 # PHP-test-task-7
 PHP test task for new job.
 
-##Task
+**Task**
 - [Description of the technical task](https://docs.google.com/document/d/1YF_zwTGlFzDPAgizijSKXhulfY2O1D1QQ0SLe5TittQ/edit?usp=sharing)
 
-##Fast start
-Run commands
+**Clone repository to your local machine**
 ```bash
-% bin/console d:d:c && bin/console d:m:m && bin/console d:f:l
+% git@github.com:moroztaras/php-test-task-7.git
+```
+
+**Create project config**
+```bash
+% cd php-test-task-7
+% cp .env .env.local
+```
+
+**Quick start of the project**
+
+Adjust .env.local line 28.
+
+It's credentials to database.
+
+**Run composer install in the directory**
+```bash
+% composer install
+```
+**Create database**
+```bash
+% php bin/console d:d:c
+```
+
+**Create tables in your schema**
+```bash
+% php bin/console d:m:m
+```
+
+**Load fixtures**
+```bash
+% php bin/console d:f:l
 ```
