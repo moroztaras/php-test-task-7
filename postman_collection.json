@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "2a2db52c-182b-451a-8000-588499db22aa",
+		"name": "PHP test project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11796877"
+	},
+	"item": [
+		{
+			"name": "MobilePhone",
+			"item": [
+				{
+					"name": "api/mobile-number/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name_operator\": \"KyivStar\",\n    \"code_country\": 380,\n    \"code_operator\": 98,\n    \"number\": \"9031200\"\n }"
+						},
+						"url": {
+							"raw": "{{test-host}}/api/mobile-number/1/add",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"mobile-number",
+								"1",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/mobile-number/top-up-balance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"top_up_amount\": 100.0\n}"
+						},
+						"url": {
+							"raw": "{{test-host}}/api/mobile-number/12/top-up-balance",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"mobile-number",
+								"12",
+								"top-up-balance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "api/user/registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Taras\",\n    \"last_name\": \"Moroz\",\n    \"birthday\": \"1986-07-15\"\n}"
+						},
+						"url": {
+							"raw": "http://phptest.tmoroz.com/api/user/registration",
+							"protocol": "http",
+							"host": [
+								"phptest",
+								"tmoroz",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test-host}}/api/user/1/profile",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/suma-balances",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test-host}}/api/user/1/suma-balances",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1",
+								"suma-balances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/numbers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test-host}}/api/user/1/numbers",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"1",
+								"numbers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/count-numbers-every-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test-host}}/api/user/3/count-numbers-every-user",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"3",
+								"count-numbers-every-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/user-max-balance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{test-host}}/api/user/3/user-max-balance",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"3",
+								"user-max-balance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/{id}/remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{test-host}}/api/user/5/remove",
+							"host": [
+								"{{test-host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"5",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
