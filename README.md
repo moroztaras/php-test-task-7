@@ -39,3 +39,9 @@ It's credentials to database.
 ```bash
 % php bin/console d:f:l
 ```
+**OR**
+
+**Load data into the database from the dump file.**
+```bash
+% php bin/console d:d:c && mysql -u root -p php-test-task-7 < DumpDB.sql --force
+```
